@@ -1,0 +1,21 @@
+{
+    "name": "plunging-chode/ldap",
+    "description": "A small library to ease LDAP searches",
+    "type": "library",
+    "authors": [
+        {
+            "name": "plungingChode",
+            "email": "szigeti.peter23@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.2.5",
+        "ext-ldap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ldap\\": "src/ldap"
+        }
+    }
+}
