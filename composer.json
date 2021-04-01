@@ -8,6 +8,7 @@
             "email": "szigeti.peter23@gmail.com"
         }
     ],
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.5",
@@ -15,7 +16,10 @@
     },
     "autoload": {
         "psr-4": {
-            "ldap\\": "src/ldap"
+            "PlungingChode\\": "src/plungingChode"
         }
+    },
+    "config": {
+        "optimize-autoloader": true
     }
 }

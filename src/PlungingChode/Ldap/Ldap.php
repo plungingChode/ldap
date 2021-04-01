@@ -1,11 +1,11 @@
 <?php
 
-namespace ldap;
+namespace PlungingChode\Ldap;
 
 use Exception;
-use ldap\IFilter;
+use PlungingChode\Ldap\IFilter;
 
-class LDAP
+class Ldap
 {
     private $host, $port, $base_dn, 
             $user, $password, $cnxn;
@@ -21,6 +21,7 @@ class LDAP
         $this->cnxn = $this->connect();
     }
 
+    /** Prepare the LDAP connection */
     private function connect()
     {
         $cnxn = @ldap_connect($this->host, $this->port);
@@ -31,7 +32,14 @@ class LDAP
         return $cnxn;
     }
 
-    private static function toRdn($username)
+    /**
+     * Convert a username from `domain\username` to `username@domain`
+     * format.
+     * 
+     * @param string $username
+     *      a username in `domain\username` format
+     */
+    private static function toRdn(string $username)
     {
         if (!$username || !str_contains($username, '\\')) {
             return $username;
@@ -41,6 +49,13 @@ class LDAP
         return $parts[1] . '@' . $parts[0];
     }
 
+    /**
+     * Attempt to access an LDAP directory with the provided
+     * credentials.
+     * 
+     * @param string $username
+     * @param string $password
+     */
     private function bind($username, $password)
     {
         $bind = @ldap_bind($this->cnxn, self::toRdn($username), $password);
@@ -51,6 +66,10 @@ class LDAP
         return $bind;
     }
 
+    /**
+     * Check a user's credentials in the current LDAP
+     * directory.
+     */
     public function authenticate($username, $password)
     {
         try {
@@ -61,6 +80,18 @@ class LDAP
         }
     }
 
+    /**
+     * Clean up the result returned by `ldap_get_entries` by removing
+     * extraneous fields.
+     * 
+     * @param array $searchResult
+     *      the return value of a `ldap_get_entries` call
+     * @param array $attributes
+     *      the attributes to keep in the result. If a record
+     *      doesn't have a requested attribute, it's inserted as `null`.
+     * @return array 
+     *      the search result in `items[ idx => record[] ]` format
+     */
     public static function clean(array $searchResult, array $attributes=[])
     {
         if (count($searchResult) === 0) {
@@ -103,6 +134,17 @@ class LDAP
         return $cleaned;
     }
 
+    /**
+     * Execute an LDAP search using the provided filter and attributes.
+     * 
+     * @param IFilter $f
+     * @param array $attributes [optional]
+     *      if the array contains elements the result will contain only those
+     *      attributes
+     * @param bool $clean [optional]
+     *      if set to true, irrelevant fields (e.g. `count => x`, `0 => attribute`)
+     *      will be removed from the result
+     */
     public function search(IFilter $f, array $attributes=[], bool $clean=true)
     {
         $bind = $this->bind($this->user, $this->password);

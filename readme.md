@@ -5,12 +5,12 @@ Install with [composer](https://getcomposer.org/download/):
 composer require plunging-chode/ldap
 ```
 
-Make  and LDAP query or validate a user's credentials:
+Make an LDAP query or validate a user's credentials:
 ```php
-use ldap\LDAP;
-use ldap\Filter;
+use PlungingChode\Ldap\Ldap;
+use PlungingChode\Ldap\Filter;
 
-$ldap = new LDAP(
+$ldap = new Ldap(
         // Supply a host and port
         'ldap.host', 386,
         // Base DN used for searches
