@@ -3,7 +3,7 @@
 namespace PlungingChode\Ldap;
 
 use Exception;
-use PlungingChode\Ldap\IFilter;
+use PlungingChode\Ldap\Utils\IFilter;
 
 class Ldap
 {

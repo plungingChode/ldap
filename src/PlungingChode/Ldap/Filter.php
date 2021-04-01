@@ -2,9 +2,9 @@
 
 namespace PlungingChode\Ldap;
 
-use PlunginChode\Ldap\Utils\IFilter;
-use PlunginChode\Ldap\Utils\LogicalFilter;
-use PlunginChode\Ldap\Utils\ValueFilter;
+use PlungingChode\Ldap\Utils\IFilter;
+use PlungingChode\Ldap\Utils\LogicalFilter;
+use PlungingChode\Ldap\Utils\ValueFilter;
 
 /**
  * Provides factory methods for building filters

@@ -1,12 +1,6 @@
 <?php
 
-namespace PlunginChode\Ldap\Utils;
-
-interface IFilter 
-{
-    /** Converts this object into a valid LDAP filter string. */
-    public function toString();
-}
+namespace PlungingChode\Ldap\Utils;
 
 /**
  * Represents a logical filter, composed of other logical-
@@ -35,25 +29,5 @@ class LogicalFilter implements IFilter
         }
         $str .= ')';
         return $str;
-    }
-}
-
-/**
- * Represents a `key = value` filter.
- */
-class ValueFilter implements IFilter
-{
-    protected $field;
-    protected $value;
-
-    public function __construct($field, $value)
-    {
-        $this->field = $field;
-        $this->value = $value;
-    }
-
-    public function toString()
-    {
-        return '(' . strval($this->field) . '=' . strval($this->value) . ')';
     }
 }
