@@ -1,6 +1,6 @@
 <?php
 
-namespace PlunginChode\Ldap\Filter;
+namespace PlunginChode\Ldap\Utils;
 
 interface IFilter 
 {
